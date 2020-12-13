@@ -1,8 +1,8 @@
 {
   "packages": {
-    "subbclub/autobackuper": {
+    "subbclub/autobackup": {
       "0.0.1": {
-        "name": "subbclub/autobackuper",
+        "name": "subbclub/autobackup",
         "type": "library",
         "description": "Script to backup to the usual Yandex Disk",
         "keywords": [

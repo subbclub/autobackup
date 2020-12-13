@@ -1,5 +1,5 @@
 {
-  "name": "subbclub/autobackuper",
+  "name": "subbclub/autobackup",
   "type": "library",
   "description": "Script to backup to the usual Yandex Disk",
   "keywords": [
