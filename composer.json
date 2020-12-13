@@ -10,7 +10,7 @@
   ],
   "homepage": "https://repo.underclub.ru/subbclub/autobackup/",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "authors": [
     {
       "name": "Gregory Krassilnikov",
@@ -22,7 +22,7 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Subbclub\\AutoBackup\\": "subbclub/src/AutoBackup"
+      "Subbclub\\AutoBackup\\": "src/AutoBackup"
     }
   },
   "require": {
