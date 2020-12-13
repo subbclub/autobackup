@@ -49,4 +49,9 @@ class Yandex extends ProviderOptions
      */
     public string $proxyPass;
 
+    /**
+     * @var string
+     */
+    public string $backupVersionDirName;
+
 }

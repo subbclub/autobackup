@@ -17,14 +17,12 @@ class Yandex extends BaseConnect
     private string $proxyServer;
     private int $proxyPort;
     private bool $consoleOutput;
-    /**
-     * @var string
-     */
     private string $fileWebPath;
     private array $logOutput;
     private bool $useProxy;
     private string $proxyUser;
     private string $proxyPass;
+    private string $backupVersionDirName;
 
     function __construct(ProviderOptions\Yandex $options)
     {
@@ -44,6 +42,8 @@ class Yandex extends BaseConnect
                 $this->proxyPass = $options->proxyPass;
             }
         }
+
+        $this->backupVersionDirName = isset($options->backupVersionDirName) ? $options->backupVersionDirName : date('Y-m-d');
     }
 
     private function stdOutput($stage, $message)
@@ -89,14 +89,13 @@ class Yandex extends BaseConnect
      */
     public function proceedBackup(array $resultFiles)
     {
-
-
         $baseRemoteDirectoryPath = $this->remoteDirectoryPath;
         $fileWebPath = rtrim($this->fileWebPath, '/');
+        $backupVersionDirName = $this->backupVersionDirName;
 
         if (!empty($resultFiles)) {
 
-            $dirName = $baseRemoteDirectoryPath . date('Y-m-d');
+            $dirName = $baseRemoteDirectoryPath . $backupVersionDirName;
 
             $createRemoteDirRequest = Request::put("https://cloud-api.yandex.net/v1/disk/resources?path=$dirName");
             $this->setCommonRequestParams($createRemoteDirRequest);

@@ -8,7 +8,7 @@ require_once "vendor/autoload.php";
 
 /** Configuration */
 
-$directoryWithFilesMaskToScan = "/home/bitrix/www/bitrix/backup/*.tar.*";
+$directoryWithFilesMaskToScan = "www/files-to/backup/*.file.tar.*";
 $baseRemoteDirectoryPath = "/backups/";
 $token = "";
 
@@ -28,6 +28,7 @@ $options = new ProviderOptions\Yandex();
 $options->token = $token;
 $options->remoteDirectoryPath = $baseRemoteDirectoryPath;
 $options->fileWebPath = "https://your.site.there/backups/there/";
+$options->backupVersionDirName = date("Y-m-d");
 
 $yandexProvider = new Yandex($options);
 
