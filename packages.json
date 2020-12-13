@@ -1,7 +1,7 @@
 {
   "packages": {
     "subbclub/autobackup": {
-      "0.0.1": {
+      "1.0.1": {
         "name": "subbclub/autobackup",
         "type": "library",
         "description": "Script to backup to the usual Yandex Disk",
@@ -12,7 +12,7 @@
         ],
         "homepage": "https://subbclub.ru",
         "license": "MIT",
-        "version": "0.0.1",
+        "version": "1.0.1",
         "authors": [
           {
             "name": "Gregory Krassilnikov",
