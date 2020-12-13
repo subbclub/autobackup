@@ -5,9 +5,10 @@
   "keywords": [
     "yandex",
     "disk",
-    "backup"
+    "backup",
+    "php"
   ],
-  "homepage": "https://subbclub.ru",
+  "homepage": "https://repo.underclub.ru/subbclub/autobackup/",
   "license": "MIT",
   "version": "0.0.1",
   "authors": [
