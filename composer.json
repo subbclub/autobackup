@@ -1,0 +1,31 @@
+{
+  "name": "subbclub/autobackuper",
+  "type": "library",
+  "description": "Script to backup to the usual Yandex Disk",
+  "keywords": [
+    "yandex",
+    "disk",
+    "backup"
+  ],
+  "homepage": "https://subbclub.ru",
+  "license": "MIT",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Gregory Krassilnikov",
+      "email": "mc@subbclub.ru",
+      "homepage": "https://subbclub.ru",
+      "role": "Developer"
+    }
+  ],
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Subbclub\\AutoBackup\\": "subbclub/src/AutoBackup"
+    }
+  },
+  "require": {
+    "nategood/httpful": "*",
+    "ext-curl": "*"
+  }
+}
