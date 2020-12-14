@@ -13,55 +13,13 @@ use Httpful\Request;
 class Yandex extends BaseConnect
 {
     private string $token;
-    private string $remoteDirectoryPath;
-    private string $proxyServer;
-    private int $proxyPort;
-    private bool $consoleOutput;
-    private string $fileWebPath;
-    private array $logOutput;
-    private bool $useProxy;
-    private string $proxyUser;
-    private string $proxyPass;
-    private string $backupVersionDirName;
 
     function __construct(ProviderOptions\Yandex $options)
     {
         $this->token = $options->token;
-        $this->remoteDirectoryPath = $options->remoteDirectoryPath;
-        $this->fileWebPath = $options->fileWebPath;
-        $this->consoleOutput = $options->consoleOutput;
-
-        $this->useProxy = $options->useProxy;
-
-        if ($this->useProxy) {
-            $this->proxyServer = $options->proxyServer;
-            $this->proxyPort = $options->proxyPort;
-
-            if (!empty($options->proxyUser)) {
-                $this->proxyUser = $options->proxyUser;
-                $this->proxyPass = $options->proxyPass;
-            }
-        }
-
-        $this->backupVersionDirName = isset($options->backupVersionDirName) ? $options->backupVersionDirName : date('Y-m-d');
+        parent::__construct($options);
     }
 
-    private function stdOutput($stage, $message)
-    {
-        switch ($this->consoleOutput) {
-            case true:
-                echo date("d.m.Y H:i:s") . " " . $stage . ": " . $message . "\n";
-                break;
-            case false:
-                $this->logOutput[] = [
-                    "date" => date("c"),
-                    "stage" => $stage,
-                    "message" => $message
-                ];
-
-                break;
-        }
-    }
 
     /**
      * @param Request $request
@@ -84,16 +42,16 @@ class Yandex extends BaseConnect
 
 
     /**
-     * @param array $resultFiles
+     * @param array $files
      * @throws ProviderException
      */
-    public function proceedBackup(array $resultFiles)
+    public function proceedBackup(array $files)
     {
         $baseRemoteDirectoryPath = $this->remoteDirectoryPath;
         $fileWebPath = rtrim($this->fileWebPath, '/');
         $backupVersionDirName = $this->backupVersionDirName;
 
-        if (!empty($resultFiles)) {
+        if (!empty($files)) {
 
             $dirName = $baseRemoteDirectoryPath . $backupVersionDirName;
 
@@ -110,7 +68,7 @@ class Yandex extends BaseConnect
                 throw new ProviderException("Unable to proceed createRemoteDir request");
             }
 
-            foreach ($resultFiles as &$resultFile) {
+            foreach ($files as &$resultFile) {
                 $resultFileNameExploded = explode("/", $resultFile);
                 $resultFileName = end($resultFileNameExploded);
 
@@ -135,7 +93,7 @@ class Yandex extends BaseConnect
                     }
 
                 } catch (ConnectionErrorException $e) {
-                    $resultFiles[] = $resultFile;
+                    $files[] = $resultFile;
                     $this->stdOutput("file upload", "file $resultFile will be proceeded again later");
                     $this->stdOutput("file upload", $e->getMessage());
                 }
@@ -166,7 +124,7 @@ class Yandex extends BaseConnect
                                         }
                                         if (in_array($status, ["failed"])) {
                                             $this->stdOutput("file upload", $responseStatus->code);
-                                            $resultFiles[] = $resultFile;
+                                            $files[] = $resultFile;
                                             $this->stdOutput("file upload", "file $resultFile will be proceeded again later");
 
                                             break;
@@ -183,7 +141,7 @@ class Yandex extends BaseConnect
                         }
                     }
                 } catch (Exception $e) {
-                    $resultFiles[] = $resultFile;
+                    $files[] = $resultFile;
                     $this->stdOutput("file upload", "file $resultFile will be proceeded again later");
                     $this->stdOutput("file upload", $e->getMessage());
                 }
